@@ -1,6 +1,6 @@
 import numpy as np
 
-
+# Reads files from the HB113 dataset
 def read_data(file):
     edges = []
     with open(file, 'r') as file:
@@ -12,11 +12,5 @@ def read_data(file):
             arrete = (int(edge[0]), int(edge[1]))
             edges.insert(i, arrete)
             i += 1
-        # return int(first_line[0]), int(first_line[1]), edges
-        return edges
+        return int(first_line[0]), int(first_line[1]), edges
 
-
-# nb_vertex, nb_edges, edges = read_data(file='HB113-20230131/494_bus.mtx.rnd')
-edges = read_data(file='HB113-20230131/494_bus.mtx.rnd')
-
-print(edges)
