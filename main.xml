@@ -1,5 +1,8 @@
 <instance format="XCSP3" type="CSP">
   <variables>
-    <array id="x" note="x[i] is the position of the vertex i" size="[494]"> 0..493 </array>
+    <array id="x" size="[494]"> 1..494 </array>
   </variables>
+  <constraints>
+    <allDifferent> x[] </allDifferent>
+  </constraints>
 </instance>
