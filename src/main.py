@@ -1,14 +1,16 @@
-from pycsp3 import *
+# from pycsp3 import *
 import parser
-import model
+# import model
+import sys
 
 
-def main():
-    nb_vertex, nb_edges, edges = parser.read_data(file='HB113/494_bus.mtx.rnd')
-    # print(edges[0][0])
-    if solve(model.model1(nb_vertex, edges)) is SAT:
-        print("x:", x)
+def main(argv):
+    print(sys.argv[1])
+    parser.read_data_v2(file=sys.argv[1])
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[0:])
+
+# Exécuter en ligne de commande
+# Voir les options d'affichages de PyCSP3

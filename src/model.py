@@ -11,5 +11,9 @@ def model1(n, edges):
     )
 
     minimize(
-        Maximum(min(abs(x[i] - x[j]), n - abs(x[i] - x[j])) for i, j in edges)
+        Maximum(min(abs(x[i] - x[j]), n - abs(x[i] - x[j]))
+                for (i, j) in edges)
     )
+
+    if solve(solver=ACE) is SAT:
+        print(x)

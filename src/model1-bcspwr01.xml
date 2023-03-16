@@ -1,6 +1,6 @@
 <instance format="XCSP3" type="CSP">
   <variables>
-    <array id="x" size="[494]"> 1..494 </array>
+    <array id="x" size="[39]"> 1..39 </array>
   </variables>
   <constraints>
     <allDifferent> x[] </allDifferent>
