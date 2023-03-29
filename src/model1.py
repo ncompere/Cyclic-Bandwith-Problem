@@ -10,5 +10,6 @@ satisfy(
     AllDifferent(x)
 )
 minimize(
-    Maximum(min(abs(x[i] - x[j]), n - abs(x[i] - x[j])) for i, j in edges)
+    Maximum(min(abs(x[i-1] - x[j-1]), n - abs(x[i-1] - x[j-1]))
+            for [i, j] in edges)
 )

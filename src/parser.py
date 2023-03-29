@@ -3,8 +3,6 @@ import json
 import os
 
 # Reads files from the HB113 dataset
-
-
 def read_data(file):
     edges = []
     with open(file, 'r') as file:
@@ -19,6 +17,7 @@ def read_data(file):
         return int(first_line[0]), int(first_line[2]), edges
 
 
+# Reads files from the HB113 dataset and writes them in json format
 def read_data_v2(file):
     graph = {}
     with open(file, 'r') as file:
