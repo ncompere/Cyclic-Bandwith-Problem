@@ -13,3 +13,4 @@ minimize(
     Maximum(min(abs(x[i-1] - x[j-1]), n - abs(x[i-1] - x[j-1]))
             for [i, j] in edges)
 )
+
