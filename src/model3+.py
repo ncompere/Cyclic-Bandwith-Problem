@@ -13,6 +13,7 @@ from time import time
 
 k = int(sys.argv[1])
 datapath = "../data/" + sys.argv[2]
+cons1 = 1
 outpath = ''.join(mR.choice(mS.ascii_uppercase + mS.digits) for _ in range(24))
 outpath += ".cnf"
 solve = True
@@ -40,27 +41,24 @@ def flushToFile(f, s, i, maxiter):
     return s, i
 
 niter = 1
-# Valeur arbitraire, dépend fortement de la capacité en RAM, entres autres
 maxiter = 10000
 buff.write(f"{T} 0\n")
+buff.write(f"{cons1} 0\n")
 numclauses = 1
 
-# Clauses 2, 3 et 4
+# Clauses 2 et 3
 
 for i in range(n):
     c2 = []
     for j in range(n):
-        c3, c4 = [-(n*i+j)-1], [-(n*i+j)-1]
+        c3 = [-(n*i+j)-1]
         for k in range(n):
             if k != j:
-                c3.append(-(n*i+k)-1)
-                c4.append(-(n*k+i)-1)
+                c3.append(-(n*k+i)-1)
         c2.append(n*i+j+1)
         c3.append(0)
-        c4.append(0)
         buff, niter = flushToFile(out, buff, niter, maxiter)
         buff.write(" ".join([str(item) for item in c3]) + "\n")
-        buff.write(" ".join([str(item) for item in c4]) + "\n")
         niter += 2
         numclauses += 2
     c2.append(0)
@@ -75,7 +73,7 @@ for i in range(n):
         if min(abs(j - i), n - abs(j - i)) <= k:
             P[i][j] = True
 
-# Clauses 5
+# Clause 4
 
 for (u, v) in edges:
     for i in range(n):
@@ -92,8 +90,6 @@ for (u, v) in edges:
                 numclauses += 1
 
 del(P)
-
-# DIMACS
 
 instance = datapath.split("/")[-1].split(".")[0]
 
@@ -112,7 +108,7 @@ os.remove(outpath)
 
 elapsedT = time() - elapsedT
 
-print(f"  * Generated the file {outpath} in \033[1;32m{elapsedT:.2f}\u001B[0m seconds.")
+print(f"* Generated the file {outpath} in \033[1;32m{elapsedT:.2f}\u001B[0m seconds.")
 
 if solve:
     from pysat.formula import CNF
@@ -126,8 +122,6 @@ if solve:
     with Glucose4(ins.clauses) as s:
         result = s.solve()
     elapsedT = time()-elapsedT
-    del(ins)
-    os.remove(outpath+".gz")
 
     if wr:
         print(f"  $ {result}")

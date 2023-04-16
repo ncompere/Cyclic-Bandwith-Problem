@@ -22,7 +22,7 @@ files=("$folder_path"/*.json)
 for file in "${files[@]}"; do
   echo "Running the Python script on file: $file"
   start_time=$(date +%s.%N)
-  gtimeout 30s python model1.py -data="$file" -solve > "${file}.txt" 2>&1
+  gtimeout 30s python3 model1.py -data="$file" -solve > "${file}.txt" 2>&1
   end_time=$(date +%s.%N)
   elapsed_time=$(echo "$end_time - $start_time" | bc)
   echo "Execution time for $file: $elapsed_time seconds"

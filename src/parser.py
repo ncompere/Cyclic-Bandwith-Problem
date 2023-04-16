@@ -1,24 +1,13 @@
 import numpy as np
+import pickle as pk
 import json
 import os
-
-# Reads files from the HB113 dataset
-def read_data(file):
-    edges = []
-    with open(file, 'r') as file:
-        lines = file.readlines()
-        first_line = lines[1].split()
-        i = 0
-        for line in lines[2:]:
-            edge = line.split()
-            arrete = (int(edge[0]), int(edge[1]))
-            edges.insert(i, arrete)
-            i += 1
-        return int(first_line[0]), int(first_line[2]), edges
+from os import listdir, makedirs, system
+from os.path import isfile, join, exists
 
 
 # Reads files from the HB113 dataset and writes them in json format
-def read_data_v2(file):
+def read_data(file):
     graph = {}
     with open(file, 'r') as file:
         lines = file.readlines()
@@ -40,3 +29,27 @@ def read_data_v2(file):
     with open(complete_name, "w") as outfile:
         json.dump(graph, outfile)
 
+
+def read_all_data():
+    for file_name in os.listdir("../HB113/"):
+        if file_name.endswith(".rnd"):
+            print(os.path.join("../HB113/", file_name))
+            parser.read_data(file=os.path.join("../HB113/", file_name))
+
+
+def calculate_max_degree(file, path="../data/"):
+    filename = path + file
+    with open(filename, 'r') as f:
+        graph_data = json.load(f)
+        num_vertices = graph_data['V']
+        num_edges = graph_data['E']
+        edges = graph_data['edges']
+        degree = [0] * num_vertices
+        for edge in edges:
+            degree[edge[0]-1] += 1
+            degree[edge[1]-1] += 1
+    return max(degree)
+
+
+# test = calculate_max_degree("curtis54.json")
+# print(test)
